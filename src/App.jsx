@@ -6,7 +6,7 @@ export default function App() {
   return (
     <BrowserRouter>
       {/* Navbar */}
-      <nav className="flex items-center justify-between bg-blue-900 text-white px-6 py-4 shadow-md">
+      <nav className="flex items-center justify-between bg-red-900 text-white px-6 py-4 shadow-md">
         {/* Left side - Logo */}
         <div className="flex items-center gap-3">
           <img
