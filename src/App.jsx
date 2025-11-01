@@ -25,6 +25,12 @@ export default function App() {
           <Link to="/about" className="hover:underline">
             About
           </Link>
+          <Link to="/product" className="hover:underline">
+            Product
+          </Link>
+          <Link to="/news" className="hover:underline">
+            Ness
+          </Link>
         </div>
       </nav>
 
