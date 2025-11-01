@@ -28,14 +28,14 @@ export default function App() {
             Product
           </Link>
           <Link to="/news" className="hover:underline">
-            Ness
+            News
           </Link>
         </div>
       </nav>
 
       {/* Page routes */}
       <Routes>
-        <Route path="/" element={<Home />} />
+
       </Routes>
     </BrowserRouter>
   );
