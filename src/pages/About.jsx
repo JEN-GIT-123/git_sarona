@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-export default function About() {
-  return (
-    <h1 className="bg-pink-300">
-      About page
-    </h1>
-  );
-}
-=======
+
 // AboutPage.jsx
 import React from 'react';
 
@@ -134,4 +126,3 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
->>>>>>> 5227c6ac2c0e1ef65aa2a7cad937e8abf547666e
