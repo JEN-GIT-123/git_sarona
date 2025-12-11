@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Project";
 import News from "./pages/News";
+import Contact from "./pages/Contact"
 
 export default function App() {
   return (
@@ -26,6 +27,9 @@ export default function App() {
           <Link to="/news" className="hover:text-pink-600 transition">
             News
           </Link>
+          <Link to="/contact" className="hover:text-pink-600 transition">
+            Contact
+          </Link>
         </div>
       </nav>
 
@@ -35,6 +39,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/product" element={<Products />} />
         <Route path="/news" element={<News />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );
