@@ -1,14 +1,27 @@
+import { FaSearch } from "react-icons/fa";
+
 export default function CuteHome() {
   return (
     <div className="min-h-screen bg-pink-50 text-pink-900 font-sans">
-      {/* Navbar */}
-
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-16 text-center">
         <h2 className="text-5xl font-extrabold text-pink-700 mb-4">Welcome Cutie! 💖</h2>
         <p className="text-pink-600 max-w-xl mx-auto mb-6 text-lg">
           A soft, pastel, and adorable homepage UI made with React + Tailwind.
         </p>
+
+        {/* Search Bar */}
+        <div className="flex justify-center mb-6">
+          <div className="relative w-full max-w-md">
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-400" />
+            <input
+              type="text"
+              placeholder="Search phones or products..."
+              className="w-full px-12 py-3 rounded-full border-2 border-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-300 placeholder-pink-400 text-pink-700 shadow-sm"
+            />
+          </div>
+        </div>
+
         <button className="bg-pink-500 text-white px-8 py-3 rounded-full shadow-lg hover:bg-pink-600 transition text-lg">
           Start Exploring ✨
         </button>
