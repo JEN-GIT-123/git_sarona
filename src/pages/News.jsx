@@ -103,30 +103,6 @@ export default function News() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50">
-      <header className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <span className="text-3xl">🌸</span>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-              CutieShop
-            </h1>
-          </div>
-          <div className="flex items-center space-x-6">
-            <div className="relative group">
-              <CartIcon />
-              <div className="absolute hidden group-hover:block right-0 top-full mt-2 w-64 bg-white rounded-lg shadow-lg p-4 z-10">
-                <p className="font-semibold mb-2">Cart ({cart.length} items)</p>
-                {cart.length === 0 ? (
-                  <p className="text-gray-500">Your cart is empty</p>
-                ) : (
-                  <p className="text-green-600">Items added!</p>
-                )}
-              </div>
-            </div>
-            <span className="text-xl">👑</span>
-          </div>
-        </div>
-      </header>
 
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section with Timer */}
@@ -311,29 +287,6 @@ export default function News() {
             </button>
           </div>
         </div>
-
-        {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <span className="text-3xl">🌸</span>
-              <div>
-                <div className="font-bold text-xl">CutieShop</div>
-                <div className="text-sm text-gray-500">Spreading happiness since 2023</div>
-              </div>
-            </div>
-            <div className="flex space-x-6 text-2xl">
-              {['🐦', '📘', '📷', '🎵'].map((icon, index) => (
-                <button key={index} className="hover:scale-110 transform transition-transform">
-                  {icon}
-                </button>
-              ))}
-            </div>
-          </div>
-          <p className="text-center text-gray-600 mt-8">
-            Made with ❤️ for all the cute things in life
-          </p>
-        </footer>
       </main>
     </div>
   );

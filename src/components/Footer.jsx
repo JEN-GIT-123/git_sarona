@@ -7,7 +7,7 @@ export default function CuteFooter() {
 
         {/* Logo & description */}
         <div>
-          <h1 className="text-2xl font-extrabold mb-3 text-pink-700">🌸 CutePhone</h1>
+          <h1 className="text-2xl font-extrabold mb-3 text-pink-700">🌸 CuteSite</h1>
           <p className="text-pink-600 text-sm">
             Bringing the cutest phones to your fingertips. Soft, pastel, and adorable shopping experience!
           </p>
@@ -39,13 +39,13 @@ export default function CuteFooter() {
         <div>
           <h4 className="font-bold mb-3">Follow Us</h4>
           <div className="flex gap-4 text-pink-600">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition text-2xl">
+            <a href="https://web.facebook.com/chev.chen.7" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition text-2xl">
               <FaFacebookF />
             </a>
-            <a href="https://t.me" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition text-2xl">
+            <a href="https://t.me/chevjen" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition text-2xl">
               <FaTelegramPlane />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition text-2xl">
+            <a href="https://github.com/JEN-GIT-123" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition text-2xl">
               <FaGithub />
             </a>
           </div>

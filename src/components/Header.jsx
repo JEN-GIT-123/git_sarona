@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaBars, FaTimes, FaUser, FaShoppingCart } from "react-icons/fa";
-import { useCart } from "../components/CartContext"; // Import the cart context
+import {
+  FaBars,
+  FaTimes,
+  FaUser,
+  FaShoppingCart,
+  FaHeart,
+} from "react-icons/fa";
+import { useCart } from "../components/CartContext";
+import { useFavorites } from "../components/FavoritesContext";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { cartCount } = useCart(); // Get dynamic cart count
+
+  const { cartCount } = useCart();
+  const { favoritesCount } = useFavorites();
 
   const linkClasses = ({ isActive }) =>
     isActive
@@ -16,16 +25,34 @@ export default function Header() {
   return (
     <nav className="bg-pink-200 sticky top-0 z-50 shadow-lg border-b-4 border-pink-300">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <h1 className="text-3xl font-extrabold text-pink-700">🌸 CutePhone</h1>
+        {/* LEFT: Logo */}
+        <div className="flex-1">
+          <h1 className="text-3xl font-extrabold text-pink-700">🌸 CuteSite</h1>
+        </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-5 text-lg">
+        {/* CENTER: Navigation */}
+        <div className="hidden md:flex flex-1 justify-center items-center gap-5 text-lg">
           <NavLink to="/" className={linkClasses}>Home</NavLink>
           <NavLink to="/about" className={linkClasses}>About</NavLink>
           <NavLink to="/product" className={linkClasses}>Product</NavLink>
           <NavLink to="/news" className={linkClasses}>News</NavLink>
           <NavLink to="/contact" className={linkClasses}>Contact</NavLink>
+        </div>
+
+        {/* RIGHT: Actions */}
+        <div className="hidden md:flex flex-1 justify-end items-center gap-4">
+          {/* Favorites */}
+          <NavLink
+            to="/favorites"
+            className="relative flex items-center justify-center w-11 h-11 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
+          >
+            <FaHeart size={18} />
+            {favoritesCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                {favoritesCount}
+              </span>
+            )}
+          </NavLink>
 
           {/* Cart */}
           <NavLink
@@ -40,14 +67,13 @@ export default function Header() {
             )}
           </NavLink>
 
-          {/* Login / Profile */}
+          {/* Profile / Login */}
           {isLoggedIn ? (
             <div className="relative group ml-2">
               <button className="flex items-center gap-2 px-4 py-2 bg-white text-pink-600 rounded-full hover:bg-pink-100 transition">
                 <FaUser />
                 <span className="font-semibold">Profile</span>
               </button>
-              {/* Dropdown menu */}
               <div className="absolute right-0 top-full mt-2 w-40 bg-white border rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition overflow-hidden text-gray-800">
                 <NavLink to="/orders" className="block px-4 py-3 hover:bg-pink-50">Orders</NavLink>
                 <NavLink to="/favorites" className="block px-4 py-3 hover:bg-pink-50">Favorites</NavLink>
@@ -60,7 +86,7 @@ export default function Header() {
               </div>
             </div>
           ) : (
-            <div className="flex gap-2 ml-2">
+            <>
               <NavLink
                 to="/login"
                 onClick={() => setIsLoggedIn(true)}
@@ -74,11 +100,11 @@ export default function Header() {
               >
                 Register
               </NavLink>
-            </div>
+            </>
           )}
         </div>
 
-        {/* Mobile Button */}
+        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-pink-700 text-3xl"
           onClick={() => setOpen(!open)}
@@ -87,7 +113,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU */}
       {open && (
         <div className="md:hidden bg-pink-100 py-4 px-6 flex flex-col gap-4 text-lg border-t-2 border-pink-300">
           <NavLink onClick={() => setOpen(false)} to="/" className={linkClasses}>Home</NavLink>
@@ -97,7 +123,21 @@ export default function Header() {
           <NavLink onClick={() => setOpen(false)} to="/contact" className={linkClasses}>Contact</NavLink>
 
           <NavLink
+            to="/favorites"
+            onClick={() => setOpen(false)}
+            className="relative flex items-center justify-center w-11 h-11 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
+          >
+            <FaHeart size={18} />
+            {favoritesCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                {favoritesCount}
+              </span>
+            )}
+          </NavLink>
+
+          <NavLink
             to="/cart"
+            onClick={() => setOpen(false)}
             className="relative flex items-center justify-center w-11 h-11 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
           >
             <FaShoppingCart size={18} />
