@@ -17,7 +17,7 @@ export default function Header() {
         
         {/* Logo */}
         <h1 className="text-3xl font-extrabold text-pink-700 drop-shadow-sm">
-          🌸 CutePhone
+          🌸 Cutesite
         </h1>
 
         {/* Desktop Menu */}
