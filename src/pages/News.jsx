@@ -117,7 +117,7 @@ export default function News() {
 
         {/* Footer */}
         <footer className="mt-12 text-center text-gray-600">
-          <p>Cutie News Shop - Spreading cuteness one product at a time 🌸</p>
+          <p>Cutie News Shop - Spreading cuteness one product at a time </p>
         </footer>
       </main>
     </div>
