@@ -14,6 +14,15 @@ const PRODUCTS = [
   { id: 7, name: "Leo Pen", price: 3, category: "Stationery", image: "/images/leo-pen.png" },
   { id: 8, name: "Leo Mug", price: 12, category: "Accessories", image: "/images/leo-mug.png" },
   { id: 9, name: "Leo Backpack", price: 30, category: "Accessories", image: "/images/leo-backpack.png" },
+  { id: 10, name: "Leo Plushie", price: 5, category: "Plushies", image: leo },
+  { id: 11, name: "Leo Notebook", price: 10, category: "Stationery", image: "/images/leo-notebook.png" },
+  { id: 12, name: "Leo Keychain", price: 5, category: "Accessories", image: "/images/leo-keychain.png" },
+  { id: 13, name: "Leo Tote Bag", price: 15, category: "Accessories", image: "/images/leo-tote.png" },
+  { id: 14, name: "Leo Sticker Pack", price: 8, category: "Stationery", image: "/images/leo-sticker.png" },
+  { id: 15, name: "Leo T-Shirt", price: 20, category: "Clothes", image: "/images/leo-shirt.png" },
+  { id: 16, name: "Leo Pen", price: 3, category: "Stationery", image: "/images/leo-pen.png" },
+  { id: 17, name: "Leo Mug", price: 12, category: "Accessories", image: "/images/leo-mug.png" },
+  { id: 18, name: "Leo Backpack", price: 30, category: "Accessories", image: "/images/leo-backpack.png" },
 ];
 
 const CATEGORIES = ["All", "Plushies", "Stationery", "Accessories", "Clothes"];

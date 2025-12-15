@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { FaBars, FaTimes, FaUser, FaShoppingCart, FaHeart } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
+import { FaBars, FaTimes, FaUser, FaShoppingCart, FaHeart, FaMoon, FaSun } from "react-icons/fa";
 import { useCart } from "../components/CartContext";
 import { useFavorites } from "../components/FavoritesContext";
+import { useTheme } from "../context/ThemeContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
+  const { darkMode, setDarkMode } = useTheme();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { cartCount } = useCart();
   const { favoritesCount } = useFavorites();
@@ -16,8 +21,17 @@ export default function Header() {
       ? "text-white bg-pink-500 px-4 py-2 rounded-full shadow-md font-bold"
       : "text-pink-700 hover:bg-pink-300 px-4 py-2 rounded-full transition";
 
+  // Handle clicks that require login
+  const handleProtectedClick = (path) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    navigate(path);
+  };
+
   return (
-    <nav className="bg-pink-200 sticky top-0 z-50 shadow-lg border-b-4 border-pink-300">
+    <nav className="bg-pink-200 sticky top-0 z-50 shadow-md border-b-4 border-pink-300">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
         {/* Logo */}
@@ -38,34 +52,44 @@ export default function Header() {
 
         {/* Desktop Right Actions */}
         <div className="hidden md:flex flex-1 justify-end items-center gap-4">
-          <NavLink to="/favorites" className="relative flex items-center justify-center w-11 h-11 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition">
+          {/* Favorites & Cart */}
+          <button
+            onClick={() => handleProtectedClick("/favorites")}
+            className="relative flex items-center justify-center w-11 h-11 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
+          >
             <FaHeart size={18} />
             {favoritesCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
                 {favoritesCount}
               </span>
             )}
-          </NavLink>
+          </button>
 
-          <NavLink to="/cart" className="relative flex items-center justify-center w-11 h-11 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition">
+          <button
+            onClick={() => handleProtectedClick("/cart")}
+            className="relative flex items-center justify-center w-11 h-11 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
+          >
             <FaShoppingCart size={18} />
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
                 {cartCount}
               </span>
             )}
-          </NavLink>
-          {isLoggedIn ? (
+          </button>
+
+          {/* Login / Profile */}
+          {user ? (
             <div className="relative group ml-2">
               <button className="flex items-center gap-2 px-4 py-2 bg-white text-pink-600 rounded-full hover:bg-pink-100 transition">
                 <FaUser />
-                <span className="font-semibold">Profile</span>
+                <span className="font-semibold">{user.username}</span>
               </button>
               <div className="absolute right-0 top-full mt-2 w-40 bg-white border rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition overflow-hidden text-gray-800">
+                <NavLink to="/profile" className="block px-4 py-3 hover:bg-pink-50">Profile</NavLink>
                 <NavLink to="/orders" className="block px-4 py-3 hover:bg-pink-50">Orders</NavLink>
                 <NavLink to="/favorites" className="block px-4 py-3 hover:bg-pink-50">Favorites</NavLink>
                 <button
-                  onClick={() => setIsLoggedIn(false)}
+                  onClick={logout}
                   className="w-full text-left px-4 py-3 hover:bg-pink-50 text-red-500"
                 >
                   Logout
@@ -76,7 +100,6 @@ export default function Header() {
             <>
               <NavLink
                 to="/login"
-                onClick={() => setIsLoggedIn(true)}
                 className="px-4 py-2 bg-white text-pink-600 rounded-full font-semibold hover:bg-pink-100 transition"
               >
                 Login
@@ -89,32 +112,46 @@ export default function Header() {
               </NavLink>
             </>
           )}
+
+          {/* Dark Mode */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="relative flex items-center justify-center w-11 h-11 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
+            title="Toggle Dark Mode"
+          >
+            {darkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-3">
-          <NavLink to="/favorites" className="relative flex items-center justify-center w-10 h-10 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition">
+          <button
+            onClick={() => handleProtectedClick("/favorites")}
+            className="relative flex items-center justify-center w-10 h-10 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
+          >
             <FaHeart size={16} />
             {favoritesCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full font-bold">
                 {favoritesCount}
               </span>
             )}
-          </NavLink>
+          </button>
 
-          <NavLink to="/cart" className="relative flex items-center justify-center w-10 h-10 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition">
+          <button
+            onClick={() => handleProtectedClick("/cart")}
+            className="relative flex items-center justify-center w-10 h-10 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
+          >
             <FaShoppingCart size={16} />
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full font-bold">
                 {cartCount}
               </span>
             )}
-          </NavLink>
+          </button>
 
           <button className="text-pink-700 text-3xl" onClick={() => setOpen(!open)}>
             {open ? <FaTimes /> : <FaBars />}
           </button>
-
         </div>
       </div>
 
@@ -128,8 +165,8 @@ export default function Header() {
           <NavLink onClick={() => setOpen(false)} to="/contact" className={linkClasses}>Contact</NavLink>
 
           <div className="border-t border-pink-300 pt-4 flex flex-col gap-2">
-            {isLoggedIn ? (
-              <button onClick={() => setIsLoggedIn(false)} className="px-4 py-2 bg-pink-500 text-white rounded-full font-semibold">Logout</button>
+            {user ? (
+              <button onClick={logout} className="px-4 py-2 bg-pink-500 text-white rounded-full font-semibold">Logout</button>
             ) : (
               <>
                 <NavLink onClick={() => setOpen(false)} to="/login" className={linkClasses}>Login</NavLink>
@@ -137,6 +174,13 @@ export default function Header() {
               </>
             )}
           </div>
+
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="relative flex items-center justify-center w-10 h-10 bg-white text-pink-600 rounded-full hover:bg-pink-100 shadow transition"
+          >
+            {darkMode ? <FaSun size={16} /> : <FaMoon size={16} />}
+          </button>
         </div>
       )}
     </nav>

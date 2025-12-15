@@ -1,21 +1,48 @@
 import { useFavorites } from "../components/FavoritesContext";
 import { useCart } from "../components/CartContext";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate, NavLink } from "react-router-dom";
 import { FaTrashAlt, FaShoppingCart } from "react-icons/fa";
 
 export default function Favorites() {
-  const { favorites, removeFromFavorites } = useFavorites();
+  const { favorites, removeFromFavorites, addToFavorites, isFavorite } = useFavorites();
   const { addToCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleAddToCart = (item) => {
-    addToCart(item); // Add item to cart
-    removeFromFavorites(item.id); // Remove item from favorites automatically
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    addToCart(item);
+    removeFromFavorites(item.id);
+  };
+
+  const handleToggleFavorite = (item) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    if (isFavorite(item.id)) {
+      removeFromFavorites(item.id);
+    } else {
+      addToFavorites(item);
+    }
   };
 
   if (favorites.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-pink-50 text-pink-700">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-pink-50 text-pink-700 px-4">
         <p className="text-2xl font-semibold">No favorites yet ❤️</p>
-        <p className="mt-2 text-pink-500">Go add some cute products!</p>
+        <p className="mt-2 text-pink-500 mb-4">Go explore cute products and add them to your favorites!</p>
+        <NavLink
+          to="/product"
+          className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-full transition"
+        >
+          Go to Products
+        </NavLink>
       </div>
     );
   }
@@ -32,7 +59,10 @@ export default function Favorites() {
             key={item.id}
             className="bg-white rounded-3xl p-6 shadow-lg border-2 border-pink-200 hover:scale-105 transform transition-all duration-300 relative flex flex-col"
           >
-            <div className="h-48 bg-pink-100 rounded-2xl flex items-center justify-center text-5xl mb-4">
+            <div
+              className="h-48 bg-pink-100 rounded-2xl flex items-center justify-center text-5xl mb-4 cursor-pointer"
+              onClick={() => handleToggleFavorite(item)}
+            >
               {item.image ? (
                 <img src={item.image} alt={item.name} className="h-full rounded-2xl" />
               ) : (
