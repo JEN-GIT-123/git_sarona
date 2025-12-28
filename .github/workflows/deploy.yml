@@ -1,0 +1,33 @@
+name: Deploy Project
+
+on:
+  push:
+    branches:
+      - master  # Deploy only when code is pushed to master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to server
+        run: |
+          echo "Deploying project..."
+          # Example deploy commands:
+          # scp -r ./dist user@yourserver.com:/var/www/html
+          # OR deploy to Vercel/Netlify via CLI
+          # vercel --prod
