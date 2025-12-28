@@ -1,293 +1,96 @@
-import React, { useState, useEffect } from "react";
+import { FaStar, FaGift, FaHeart } from "react-icons/fa";
+import { useCart } from "../components/CartContext";
+import { useFavorites } from "../components/FavoritesContext";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export default function News() {
-  const [wishlist, setWishlist] = useState([1, 3]);
-  const [cart, setCart] = useState([]);
-  const [hoveredProduct, setHoveredProduct] = useState(null);
-  const [pulse, setPulse] = useState(false);
-  const [saleEndsIn, setSaleEndsIn] = useState(86400); // 24 hours in seconds
+const NEE_PRODUCTS = [
+  { id: 1, name: "Mini Cute Notebook", price: 5.99, image: "/images/mini-notebook.png" },
+  { id: 2, name: "Pastel Pen Set", price: 4.99, image: "/images/pastel-pens.png" },
+  { id: 3, name: "Sticker Collection", price: 3.99, image: "/images/stickers-collection.png" },
+  { id: 4, name: "Adorable Keychain", price: 6.99, image: "/images/adorable-keychain.png" },
+];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSaleEndsIn(prev => prev > 0 ? prev - 1 : 0);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+export default function Neex() {
+  const { addToCart } = useCart();
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  const formatTime = (seconds) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  const handleAddToCart = (item) => {
+    if (!user) return navigate("/login");
+    addToCart(item);
   };
 
-  const products = [
-    {
-      id: 1,
-      name: 'Bunny Plush Pillow',
-      price: 29.99,
-      originalPrice: 39.99,
-      rating: 4.8,
-      reviews: 128,
-      image: '🐰',
-      tag: 'NEW',
-      description: 'Super soft and huggable plush pillow',
-      colors: ['#FFB6C1', '#FF69B4', '#FFFFFF'],
-    },
-    {
-      id: 2,
-      name: 'Kawaii Cat Backpack',
-      price: 45.50,
-      originalPrice: 59.99,
-      rating: 4.9,
-      reviews: 256,
-      image: '🎒',
-      tag: 'TRENDING',
-      description: 'Adorable cat-shaped backpack with ears',
-      colors: ['#FFD700', '#9370DB', '#87CEEB'],
-    },
-    {
-      id: 3,
-      name: 'Rainbow Desk Lamp',
-      price: 34.99,
-      originalPrice: 49.99,
-      rating: 4.7,
-      reviews: 89,
-      image: '💡',
-      tag: 'SALE',
-      description: 'Color-changing LED rainbow lamp',
-      colors: ['#FF0000', '#00FF00', '#0000FF'],
-    },
-    {
-      id: 4,
-      name: 'Unicorn Phone Case',
-      price: 24.99,
-      originalPrice: 29.99,
-      rating: 4.6,
-      reviews: 342,
-      image: '📱',
-      tag: 'HOT',
-      description: 'Magical unicorn glitter phone case',
-      colors: ['#E6E6FA', '#DDA0DD', '#F0F8FF'],
-    },
-  ];
-
-  const toggleWishlist = (productId) => {
-    setWishlist(prev => 
-      prev.includes(productId) 
-        ? prev.filter(id => id !== productId)
-        : [...prev, productId]
-    );
+  const handleFavorite = (item) => {
+    if (!user) return navigate("/login");
+    isFavorite(item.id) ? removeFromFavorites(item.id) : addToFavorites(item);
   };
-
-  const addToCart = (product) => {
-    setCart(prev => [...prev, product.id]);
-    setPulse(true);
-    setTimeout(() => setPulse(false), 300);
-  };
-
-  const getDiscount = (price, original) => {
-    return Math.round((1 - price/original) * 100);
-  };
-
-  const CartIcon = () => (
-    <div className="relative">
-      <span className="text-2xl">🛒</span>
-      {cart.length > 0 && (
-        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
-          {cart.length}
-        </span>
-      )}
-    </div>
-  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50">
+    <div className="bg-purple-50 min-h-screen text-gray-800">
 
-      <main className="container mx-auto px-4 py-8">
-        {/* Hero Section with Timer */}
-        <div className="mb-12">
-          <div className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 rounded-3xl p-8 text-white relative overflow-hidden">
-            {/* Floating Elements */}
-            <div className="absolute top-4 left-4 text-3xl animate-bounce">✨</div>
-            <div className="absolute bottom-4 right-4 text-3xl animate-pulse">🌟</div>
-            
-            <div className="relative z-10">
-              <h2 className="text-4xl font-bold mb-4 animate-pulse">
-                Spring Cuteness Sale! 🌸
-              </h2>
-              <p className="mb-6 text-lg">
-                Discover adorable items that will make your heart melt. 
-                Limited time offer!
-              </p>
-              
-              {/* Sale Timer */}
-              <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-6 max-w-md">
-                <p className="font-semibold mb-2">Sale ends in:</p>
-                <div className="flex space-x-4">
-                  {['Hours', 'Minutes', 'Seconds'].map((label, index) => (
-                    <div key={label} className="text-center">
-                      <div className="bg-white/30 rounded-lg px-4 py-2">
-                        <span className="text-2xl font-mono font-bold">
-                          {formatTime(saleEndsIn).split(':')[index]}
-                        </span>
-                      </div>
-                      <span className="text-sm mt-1 block">{label}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <button className="bg-white text-pink-600 px-6 py-3 rounded-full font-bold hover:scale-105 transform transition-transform duration-200 shadow-lg">
-                Shop Now 🛍️
-              </button>
-            </div>
-          </div>
+      {/* ================= HERO ================= */}
+      <section className="bg-gradient-to-r from-purple-200 to-purple-100 py-20 text-center">
+        <h1 className="text-5xl font-extrabold text-purple-700 mb-4">
+          Neex Cute Collection 🎀
+        </h1>
+        <p className="text-purple-600 text-lg max-w-xl mx-auto">
+          Explore the cutest items you’ll ever love! Stationery, gifts, and adorable accessories 💖
+        </p>
+        <div className="mt-6 inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow text-purple-700 font-semibold justify-center mx-auto w-fit">
+          <FaStar className="text-purple-500" /> Hot Picks
         </div>
+      </section>
 
-        {/* Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          {[
-            { icon: '⭐', label: 'Top Rated', value: '4.8/5' },
-            { icon: '🚚', label: 'Free Shipping', value: 'Over $50' },
-            { icon: '🎁', label: 'Gifts', value: 'Free' },
-            { icon: '💝', label: 'Happy Customers', value: '10K+' },
-          ].map((stat, index) => (
-            <div key={index} className="bg-white rounded-xl p-4 text-center shadow-sm">
-              <div className="text-2xl mb-2">{stat.icon}</div>
-              <div className="font-bold text-gray-800">{stat.value}</div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+      {/* ================= PRODUCTS GRID ================= */}
+      <section className="py-16 max-w-6xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-purple-700 text-center mb-10">
+          Featured Products ✨
+        </h2>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group"
-              onMouseEnter={() => setHoveredProduct(product.id)}
-              onMouseLeave={() => setHoveredProduct(null)}
-            >
-              {/* Discount Badge */}
-              <div className="absolute top-0 left-0 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-3 py-1 rounded-br-lg rounded-tl-lg font-bold">
-                -{getDiscount(product.price, product.originalPrice)}%
-              </div>
+        <div className="grid md:grid-cols-4 gap-8">
+          {NEE_PRODUCTS.map((item) => (
+            <div key={item.id} className="bg-white rounded-2xl p-5 shadow-md flex flex-col hover:shadow-xl transition-transform transform hover:scale-105">
               
-              <div className="flex justify-between items-start mb-4">
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  product.tag === 'NEW' ? 'bg-blue-100 text-blue-600' :
-                  product.tag === 'TRENDING' ? 'bg-pink-100 text-pink-600' :
-                  product.tag === 'SALE' ? 'bg-red-100 text-red-600' :
-                  'bg-orange-100 text-orange-600'
-                }`}>
-                  {product.tag}
-                </span>
+              <div className="h-40 flex items-center justify-center mb-4">
+                <img src={item.image} alt={item.name} className="h-full object-contain" />
+              </div>
+
+              <h3 className="text-lg font-semibold text-purple-700">{item.name}</h3>
+              <p className="text-gray-600 mb-4">${item.price.toFixed(2)}</p>
+
+              <div className="mt-auto flex gap-3">
                 <button
-                  onClick={() => toggleWishlist(product.id)}
-                  className={`text-2xl transform transition-transform duration-300 ${
-                    wishlist.includes(product.id) 
-                      ? 'text-red-500 scale-110' 
-                      : 'text-gray-300 hover:text-red-400 hover:scale-110'
+                  onClick={() => handleAddToCart(item)}
+                  className="flex-1 bg-purple-500 hover:bg-purple-600 text-white rounded-full py-2 flex items-center justify-center gap-2 font-semibold"
+                >
+                  <FaGift /> Add
+                </button>
+
+                <button
+                  onClick={() => handleFavorite(item)}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center text-xl ${
+                    isFavorite(item.id) ? "bg-purple-100 text-purple-500" : "bg-gray-200 text-gray-400"
                   }`}
                 >
-                  {wishlist.includes(product.id) ? '❤️' : '🤍'}
+                  <FaHeart />
                 </button>
               </div>
-
-              {/* Product Image with Hover Effect */}
-              <div className={`text-7xl text-center mb-6 transition-transform duration-500 ${
-                hoveredProduct === product.id ? 'scale-125 rotate-6' : 'scale-100'
-              }`}>
-                {product.image}
-              </div>
-              
-              {/* Color Options */}
-              <div className="flex justify-center space-x-2 mb-4">
-                {product.colors.map((color, index) => (
-                  <div
-                    key={index}
-                    className="w-4 h-4 rounded-full border border-gray-300"
-                    style={{ backgroundColor: color }}
-                  />
-                ))}
-              </div>
-
-              <div className="mb-6">
-                <h4 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-pink-600 transition-colors">
-                  {product.name}
-                </h4>
-                <p className="text-sm text-gray-600 mb-3">{product.description}</p>
-                
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center">
-                    <div className="flex text-yellow-400">
-                      {'★'.repeat(5).split('').map((star, i) => (
-                        <span key={i} className={`text-xl ${
-                          i < Math.floor(product.rating) 
-                            ? 'text-yellow-400' 
-                            : 'text-gray-300'
-                        }`}>
-                          ★
-                        </span>
-                      ))}
-                    </div>
-                    <span className="ml-2 font-semibold">{product.rating}</span>
-                  </div>
-                  <span className="text-sm text-gray-500">({product.reviews} reviews)</span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="flex items-baseline">
-                    <span className="text-2xl font-bold text-gray-800">${product.price}</span>
-                    <span className="text-sm text-gray-500 line-through ml-2">${product.originalPrice}</span>
-                  </div>
-                  <div className="text-xs text-green-600 font-semibold mt-1">
-                    You save ${(product.originalPrice - product.price).toFixed(2)}
-                  </div>
-                </div>
-                <button 
-                  onClick={() => addToCart(product)}
-                  className={`bg-gradient-to-r from-pink-500 to-purple-500 text-white px-5 py-2.5 rounded-full font-bold hover:shadow-lg transform transition-all duration-200 hover:scale-105 ${
-                    pulse ? 'animate-pulse' : ''
-                  }`}
-                >
-                  + Add
-                </button>
-              </div>
-              
-              {/* Hover Overlay */}
-              {hoveredProduct === product.id && (
-                <div className="absolute inset-0 bg-gradient-to-t from-pink-500/10 to-transparent pointer-events-none" />
-              )}
             </div>
           ))}
         </div>
+      </section>
 
-        {/* Newsletter Section */}
-        <div className="mt-16 bg-gradient-to-r from-pink-100 to-purple-100 rounded-3xl p-8 text-center">
-          <span className="text-4xl mb-4 block">💌</span>
-          <h3 className="text-2xl font-bold text-gray-800 mb-3">
-            Join the Cuteness Club!
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Get exclusive deals, early access to new arrivals, and cute surprises!
-          </p>
-          <div className="max-w-md mx-auto flex gap-2">
-            <input 
-              type="email" 
-              placeholder="Your email address"
-              className="flex-1 px-4 py-3 rounded-full border border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400"
-            />
-            <button className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-full font-bold hover:shadow-lg transition-shadow">
-              Subscribe ✨
-            </button>
-          </div>
-        </div>
-      </main>
+      {/* ================= CTA ================= */}
+      <section className="py-16 bg-purple-100 text-center">
+        <h2 className="text-3xl font-bold text-purple-700 mb-4">Love Cute Things? 💜</h2>
+        <p className="text-purple-600 mb-6">Sign up to get updates and exclusive offers!</p>
+        <button className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full">
+          Join Now
+        </button>
+      </section>
+
     </div>
   );
 }
