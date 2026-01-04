@@ -1,128 +1,103 @@
+import { FaHeart, FaLightbulb, FaUsers } from "react-icons/fa";
 
-// AboutPage.jsx
-import React from 'react';
-
-const AboutPage = () => {
-  const team = [
-    { emoji: '🐰', name: 'Maya', role: 'Design Lead' },
-    { emoji: '🦊', name: 'Leo', role: 'Dev Wizard' },
-    { emoji: '🐱', name: 'Chloe', role: 'UX Fairy' },
-    { emoji: '🐶', name: 'Max', role: 'Code Chef' }
-  ];
-
-  const features = [
-    { icon: '✨', text: 'Adorable Designs' },
-    { icon: '🎨', text: 'Creative Solutions' },
-    { icon: '💖', text: 'Made with Love' },
-    { icon: '🚀', text: 'Fast & Fun' }
-  ];
-
+export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-blue-50 font-sans">
-      
-      {/* Header */}
-      <header className="text-center py-8 px-4">
-        <div className="inline-block mb-4 animate-bounce">
-          <span className="text-5xl">🎀</span>
-        </div>
-        <h1 className="text-4xl font-bold text-pink-500 mb-2">
-          Hello! We're Cute Team
+    <div className="bg-pink-50 min-h-screen">
+
+      {/* ================= HERO ================= */}
+      <section className="bg-gradient-to-r from-pink-200 to-pink-100 py-20 text-center">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-pink-700 mb-4">
+          About Us 💖
         </h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-          Making the internet a more adorable place, one pixel at a time
+        <p className="text-pink-600 text-lg md:text-xl max-w-2xl mx-auto">
+          Bringing joy to your study life with cute stationery, gifts, and fun learning tools. 
+          We believe that study can be adorable and inspiring!
         </p>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        
-        {/* Hero Section */}
-        <section className="mb-16 text-center">
-          <div className="bg-white rounded-3xl p-8 shadow-lg border-2 border-pink-100 mb-8">
-            <div className="text-6xl mb-4">🌸</div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Our Story
-            </h2>
-            <p className="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
-              We started as a small group of friends who believed websites should make you smile. 
-              Now we create delightful digital experiences that bring joy to users around the world.
-            </p>
+        <div className="mt-8 flex justify-center gap-4">
+          <div className="w-32 h-32 bg-pink-100 rounded-full flex items-center justify-center text-5xl shadow-xl hover:animate-slide-x cursor-pointer">
+            🎀
           </div>
-        </section>
+          <div className="w-32 h-32 bg-pink-100 rounded-full flex items-center justify-center text-5xl shadow-xl hover:animate-slide-x cursor-pointer">
+            📒
+          </div>
+          <div className="w-32 h-32 bg-pink-100 rounded-full flex items-center justify-center text-5xl shadow-xl hover:animate-slide-x cursor-pointer">
+            🖊️
+          </div>
+        </div>
+      </section>
 
-        {/* Team Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-            Meet Our Team
+      {/* ================= MISSION & VISION ================= */}
+      <section className="py-20 max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div className="order-2 md:order-1">
+          <img
+            src="https://via.placeholder.com/500x400?text=Our+Mission"
+            alt="Mission"
+            className="rounded-3xl shadow-lg hover:scale-105 transition transform"
+          />
+        </div>
+        <div className="order-1 md:order-2 text-center md:text-left">
+          <h2 className="text-3xl font-bold text-pink-700 mb-4">
+            Our Mission 🌸
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {team.map((member, index) => (
-              <div 
-                key={index}
-                className="bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition-shadow border border-pink-100 hover:border-pink-200"
-              >
-                <div className="text-4xl mb-3">{member.emoji}</div>
-                <h3 className="font-bold text-lg text-gray-800">{member.name}</h3>
-                <p className="text-pink-500">{member.role}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Features */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-            Why Choose Us
+          <p className="text-pink-600 text-lg mb-6">
+            To make studying fun, cute, and motivating! We create stationery and gifts that bring happiness and inspiration to students of all ages.
+          </p>
+          <h2 className="text-3xl font-bold text-pink-700 mb-4">
+            Our Vision ✨
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {features.map((feature, index) => (
-              <div 
-                key={index}
-                className="bg-gradient-to-br from-pink-50 to-blue-50 rounded-2xl p-6 text-center border border-pink-100"
-              >
-                <div className="text-3xl mb-2">{feature.icon}</div>
-                <p className="font-medium text-gray-700">{feature.text}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+          <p className="text-pink-600 text-lg">
+            To become the go-to brand for adorable, high-quality study materials and gifts that make life brighter and more joyful.
+          </p>
+        </div>
+      </section>
 
-        {/* CTA Section */}
-        <section className="text-center">
-          <div className="bg-gradient-to-r from-pink-400 to-pink-500 rounded-3xl p-8 text-white">
-            <h2 className="text-3xl font-bold mb-4">
-              Ready to make something cute?
-            </h2>
-            <p className="text-lg mb-6 opacity-90">
-              Let's create something wonderful together!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-pink-500 font-bold py-3 px-8 rounded-full hover:bg-pink-50 transition-colors flex items-center justify-center gap-2">
-                <span>💌</span>
-                Say Hello
-              </button>
-              <button className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white/20 transition-colors flex items-center justify-center gap-2">
-                <span>🎨</span>
-                See Our Work
-              </button>
+      {/* ================= FUN FACTS / TEAM ================= */}
+      <section className="bg-pink-100 py-20">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-pink-700 mb-12">
+            Why Choose Us? 💖
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-3xl shadow-lg border-2 border-pink-200 hover:scale-105 transition transform">
+              <FaHeart className="text-4xl text-pink-500 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-pink-700 mb-2">Made With Love</h3>
+              <p className="text-pink-600">
+                Every product is designed with care, cuteness, and attention to detail.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-3xl shadow-lg border-2 border-pink-200 hover:scale-105 transition transform">
+              <FaLightbulb className="text-4xl text-pink-500 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-pink-700 mb-2">Creative Ideas</h3>
+              <p className="text-pink-600">
+                We believe learning should be fun and inspiring with creative stationery and tools.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-3xl shadow-lg border-2 border-pink-200 hover:scale-105 transition transform">
+              <FaUsers className="text-4xl text-pink-500 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-pink-700 mb-2">Happy Customers</h3>
+              <p className="text-pink-600">
+                Thousands of students and gift lovers enjoy our cute, high-quality products.
+              </p>
             </div>
           </div>
-        </section>
-
-      </main>
-
-      {/* Footer */}
-      <footer className="text-center py-8 px-4 text-gray-600 mt-8">
-        <div className="flex justify-center gap-4 text-2xl mb-4">
-          <span className="animate-pulse">💕</span>
-          <span className="animate-pulse" style={{ animationDelay: '0.2s' }}>✨</span>
-          <span className="animate-pulse" style={{ animationDelay: '0.4s' }}>🎀</span>
         </div>
-        <p>Made with 💖 by Cute Team © {new Date().getFullYear()}</p>
-      </footer>
+      </section>
+
+      {/* ================= CALL TO ACTION ================= */}
+      <section className="py-20 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-pink-700 mb-6">
+          Join Our Cute Study World 🎀
+        </h2>
+        <p className="text-pink-600 text-lg mb-8">
+          Explore our adorable stationery and gifts today, and make your study life more joyful!
+        </p>
+        <button className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition">
+          Shop Now 🛒
+        </button>
+      </section>
 
     </div>
   );
-};
-
-export default AboutPage;
+}

@@ -1,1 +1,9 @@
 @import "tailwindcss";
+@keyframes slide-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); } /* adjust distance */
+}
+
+.hover\:animate-slide-x:hover {
+  animation: slide-x 2s ease-in-out infinite;
+}

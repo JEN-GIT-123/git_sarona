@@ -1,7 +1,7 @@
 import { FaTruck, FaClock, FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../components/CartContext";
 import { useFavorites } from "../components/FavoritesContext";
-import { useAuth } from "../context/AuthContext"; // ✅ check if user is logged in
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const PRODUCTS = [
@@ -17,12 +17,12 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handleAddToCart = (item) => {
-    if (!user) return navigate("/login"); // redirect if not logged in
+    if (!user) return navigate("/login");
     addToCart(item);
   };
 
   const handleFavorite = (item) => {
-    if (!user) return navigate("/login"); // redirect if not logged in
+    if (!user) return navigate("/login");
     isFavorite(item.id) ? removeFromFavorites(item.id) : addToFavorites(item);
   };
 
@@ -49,7 +49,7 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center">
-            <div className="w-80 h-80 bg-pink-100 rounded-full flex items-center justify-center text-6xl shadow-xl animate-pulse">
+            <div className="w-80 h-80 bg-pink-100 rounded-full flex items-center justify-center text-6xl shadow-xl animate-pulse hover:animate-slide-x">
               🎀📒🖊️
             </div>
           </div>
@@ -79,8 +79,12 @@ export default function Home() {
             {PRODUCTS.map((item) => (
               <div key={item.id} className="bg-white rounded-3xl p-6 shadow-lg border-2 border-pink-200 hover:scale-105 transition flex flex-col">
 
-                <div className="h-48 bg-pink-50 rounded-2xl flex items-center justify-center mb-4">
-                  <img src={item.image} alt={item.name} className="h-full object-contain" />
+                <div className="h-48 bg-pink-50 rounded-2xl flex items-center justify-center mb-4 overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-full object-contain transform transition-transform duration-500 hover:animate-slide-x"
+                  />
                 </div>
 
                 <h3 className="text-xl font-bold text-pink-700">{item.name}</h3>
