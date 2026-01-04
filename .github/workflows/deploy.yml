@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master  # Deploy only when code is pushed to master
-    wordflow_dispatch:
+  wordflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
