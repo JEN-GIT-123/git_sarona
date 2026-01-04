@@ -1,9 +1,7 @@
 name: Deploy Project
 
 on:
-  push:
-    branches:
-      - master  # Deploy only when code is pushed to master
+  workflow_dispatch:
 
 jobs:
   deploy:
