@@ -11,20 +11,20 @@ import Dashboardusers from "./dashboard/User";
 import Dashboardorders from "./dashboard/Oder";
 import Dashboardhome from "./dashboard/Home";
 
-// import Home from "./pages/Home";
-// import About from "./pages/About";
-// import Products from "./pages/Project";
-// import News from "./pages/News";
-// import Contact from "./pages/Contact";
-// import Cart from "./pages/Cart";
-// import Favorites from "./pages/Favorites";
-// import Login from "./pages/Login";
-// import Register from "./pages/Register";
-// import Dashboard from "./pages/Dashbord";
-// import ProtectedRoute from "./components/ProtectedRoute";
-// import Checkout from "./pages/Checkout";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Products from "./pages/Project";
+import News from "./pages/News";
+import Contact from "./pages/Contact";
+import Cart from "./pages/Cart";
+import Favorites from "./pages/Favorites";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashbord";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Checkout from "./pages/Checkout";
 
-export default function App() {
+export default function App() {``
   return (
     <AuthProvider>
       <ThemeProvider>
