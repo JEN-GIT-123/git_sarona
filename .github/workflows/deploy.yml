@@ -3,9 +3,8 @@ name: Deploy Project
 on:
   push:
     branches:
-      - master
-    workflow_dispatch:
-
+      - master  # Deploy only when code is pushed to master
+    wordflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
